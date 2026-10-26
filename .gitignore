@@ -1,0 +1,6 @@
+node_modules
+dist
+*.local
+.DS_Store
+# Datos reales de clientes (semilla del Sheet): nunca van al repo público.
+privado/
