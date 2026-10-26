@@ -4,6 +4,7 @@ import { llamar } from '../api'
 import { Encabezado, Pie, Cargando, Error } from '../components/Marco'
 import { avance, fechaCorta, porFechaDesc } from '../utils'
 import Tarea from '../components/Tarea'
+import { usarManifestDeProyecto } from '../manifestProyecto'
 
 // Vista para los invitados de una reunión. El servidor solo devuelve el nombre
 // del proyecto del link, sus reuniones y sus tareas.
@@ -22,6 +23,13 @@ export default function Compartido() {
       else setError(r.error)
     })
   }, [token])
+
+  const nombreProyecto = datos?.proyecto.nombre
+  useEffect(() => {
+    if (!nombreProyecto) return
+    document.title = `${nombreProyecto} · JCS Consultoría Empresarial`
+    return usarManifestDeProyecto(nombreProyecto)
+  }, [nombreProyecto])
 
   const responsables = useMemo(() => {
     if (!datos) return []
